@@ -1,0 +1,31 @@
+# 服务器相关配置
+server:
+  port: 8989
+  servlet:
+    context-path: /cmfz
+    jsp:
+      init-parameters:
+        development: true
+# MyBatis相关配置
+mybatis:
+  type-aliases-package: com.baizhi.entity
+  #mapper-locations: classpath:com.baizhi.mapper/*Mapper.xml
+# Spring相关配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/cmfz
+    username: root
+    password: 962482
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 50MB
+  redis:
+    host: 192.168.75.103
+    port: 7000
