@@ -168,7 +168,37 @@
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
             $.get("${pageContext.request.contextPath}/user/showUserByAddress", "json", function (data) {
-
+                myChart.setOption({
+                    series: [{
+                        name: '男',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: false,
+                        label: {
+                            normal: {
+                                show: false
+                            },
+                            emphasis: {
+                                show: true
+                            }
+                        },
+                        data: data.man,
+                    }, {
+                        name: '女',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: false,
+                        label: {
+                            normal: {
+                                show: false
+                            },
+                            emphasis: {
+                                show: true
+                            }
+                        },
+                        data: data.women,
+                    }]
+                })
 
             })
             goEasy.subscribe({

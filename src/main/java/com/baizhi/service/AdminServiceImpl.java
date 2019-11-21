@@ -2,6 +2,10 @@ package com.baizhi.service;
 
 import com.baizhi.dao.AdminDao;
 import com.baizhi.entity.Admin;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +21,16 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public Map login(Admin admin) {
         HashMap hashMap = new HashMap();
-        Admin data = adminDao.selectOne(admin);
-        if (data==null){
-            hashMap.put("status","error");
-        }else {
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(admin.getUsername(),admin.getPassword());
+        try {
+            subject.login(usernamePasswordToken);
             hashMap.put("status","success");
-            hashMap.put("admin",data);
+        } catch (AuthenticationException e) {
+            hashMap.put("status","error");
+            e.printStackTrace();
+        }finally {
+            return hashMap;
         }
-        return hashMap;
     }
 }

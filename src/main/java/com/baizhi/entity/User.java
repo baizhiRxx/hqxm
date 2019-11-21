@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,4 +30,6 @@ public class User implements Serializable {
     private String phoneNumber;
     @Column(name="registTime")
     private Date registTime;
+    @Transient
+    private List<Role> roles;
 }

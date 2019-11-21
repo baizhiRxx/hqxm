@@ -1,10 +1,41 @@
-<!--<?xml version="1.0" encoding="UTF-8" ?>-->
-<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
-<!--<mapper namespace="com.baizhi.dao.UserDao">-->
-    <!--<select id="queryUserNearOneDay" resultType="Integer" parameterType="String">-->
-        <!--select count(*)-->
-        <!--from user-->
-        <!--where gender = #{gender}-->
-        <!--and date_sub(now(),interval 1 day) &lt; date(registTime)-->
-    <!--</select>-->
-<!--</mapper>-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dao.UserDao">
+    <resultMap id="UserRolePermission" type="User">
+        <id column="uid" property="id"></id>
+        <result column="phoneNumber" property="phoneNumber"></result>
+        <result column="password" property="password"></result>
+        <result column="salt" property="salt"></result>
+        <collection property="roles" ofType="Role">
+            <id column="rid" property="id"></id>
+            <result column="role" property="role"></result>
+            <collection property="permissions" ofType="Permission">
+                <id column="pid" property="id"></id>
+                <result column="permission" property="permission"></result>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="queryUserRolePermission" resultMap="UserRolePermission" parameterType="String">
+        select a.id uid,a.phoneNumber,a.password,a.salt,c.id rid,c.role,e.id pid,e.permission
+        from user a LEFT JOIN subject_role b on a.id = b.subject_id
+        LEFT JOIN role c on b.role_id = c.id
+        LEFT JOIN role_permission d on c.id = d.role_id
+        LEFT JOIN permission e on d.permission_id = e.id
+        where a.phoneNumber = #{phoneNumber}
+    </select>
+    <select id="queryUserByAddress" resultType="MapVo">
+        select location as "name",count(*) as "value" from user where gender = #{gender} group by location
+    </select>
+    <select id="queryUserNearOneyear" resultType="Integer">
+        select count(*) from user where gender = #{gender} and date_sub(now(),interval 365 day) &lt; date(registTime)
+    </select>
+    <select id="queryUserNearOneMonth" resultType="Integer">
+        select count(*) from user where gender = #{gender} and date_sub(now(),interval 30 day) &lt; date(registTime)
+    </select>
+    <select id="queryUserNearSevenDay" resultType="Integer">
+        select count(*) from user where gender = #{gender} and date_sub(now(),interval 7 day) &lt; date(registTime)
+    </select>
+    <select id="queryUserNearOneDay" resultType="Integer">
+        select count(*) from user where gender = #{gender} and date_sub(now(),interval 1 day) &lt; date(registTime)
+    </select>
+</mapper>

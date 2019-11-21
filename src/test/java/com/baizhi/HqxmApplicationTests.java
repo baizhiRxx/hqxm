@@ -118,8 +118,8 @@ class HqxmApplicationTests {
 //        System.out.println(n);
         //int i = userDao.selectCount(new User());
         //System.out.println(i);
-        List<MapVo> maps = userDao.queryUserByAddress("男");
-        System.out.println(maps);
+        User user = userDao.queryUserRolePermission("13643889030");
+        System.out.println(user);
     }
     @Test
     public void goeasy(){

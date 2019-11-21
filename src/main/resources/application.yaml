@@ -9,7 +9,7 @@ server:
 # MyBatis相关配置
 mybatis:
   type-aliases-package: com.baizhi.entity
-  #mapper-locations: classpath:com.baizhi.mapper/*Mapper.xml
+  mapper-locations: classpath:com.baizhi.mapper/*Mapper.xml
 # Spring相关配置
 spring:
   datasource:
@@ -29,3 +29,6 @@ spring:
   redis:
     host: 192.168.75.103
     port: 7000
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.75.113:9300

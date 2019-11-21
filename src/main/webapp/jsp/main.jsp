@@ -1,5 +1,6 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,7 +40,7 @@
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a>欢迎:任祥鑫</a></li>
+                <li><a>欢迎:<shiro:principal></shiro:principal></a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/logout">退出登录</a></li>
             </ul>
         </div>
@@ -66,7 +67,7 @@
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="javascript:$('#centerLay').load()">用户列表</a></li>
                                 <li><a href="javascript:$('#centerLay').load('./echarts.jsp')">注册趋势图</a></li>
-                                <li><a>地理分布图</a></li>
+                                <li><a href="javascript:$('#centerLay').load('./map.jsp')">地理分布图</a></li>
                             </ul>
                         </div>
                     </div>
@@ -122,6 +123,7 @@
                         </div>
                     </div>
                 </div>
+                <shiro:hasPermission name="banner:add">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -139,7 +141,9 @@
                         </div>
                     </div>
                 </div>
+                </shiro:hasPermission>
             </div>
+
         </div>
         <!-- 中部大屏 -->
         <div class="col-xs-10" id="centerLay">

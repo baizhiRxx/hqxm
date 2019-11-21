@@ -2,6 +2,7 @@ package com.baizhi.controller;
 
 import com.baizhi.entity.Article;
 import com.baizhi.service.ArticleService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
