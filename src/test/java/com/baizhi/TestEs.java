@@ -40,6 +40,7 @@ public class TestEs {
     private ElasticsearchTemplate elasticsearchTemplate;
     @Test
     public void test01(){
+        articleReposity.deleteAll();
         List<Article> articles = articleDao.selectAll();
         articleReposity.saveAll(articles);
     }

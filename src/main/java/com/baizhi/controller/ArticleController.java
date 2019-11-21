@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -59,5 +60,11 @@ public class ArticleController {
         if (oper.equals("del")){
             articleService.deleteArticles(id);
         }
+    }
+        @RequestMapping("showArticleByEs")
+    public List<Article> showArticleByEs(String str){
+        List<Article> articles = articleService.showArticleByEs(str);
+            System.out.println(articles);
+        return articles;
     }
 }

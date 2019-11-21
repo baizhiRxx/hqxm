@@ -102,6 +102,7 @@
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="javascript:$('#centerLay').load('./article.jsp')">文章列表</a></li>
+                                <li><a href="javascript:$('#centerLay').load('./articleSearch.jsp')">文章搜索</a></li>
                             </ul>
                         </div>
                     </div>
